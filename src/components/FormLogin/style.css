@@ -1,0 +1,4 @@
+.form-laytout {
+  display: flex;
+  flex-direction: column;
+}
