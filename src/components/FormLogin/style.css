@@ -1,4 +1,76 @@
+.form-container {
+  background-color: #1b1d1e;
+}
 .form-laytout {
+  padding: 45px;
   display: flex;
   flex-direction: column;
+  color: gray;
+}
+
+.input-container {
+  position: relative;
+}
+
+.input {
+  width: 300px;
+  height: 40px;
+  border-radius: 4px;
+  padding-left: 5px;
+  background-color: #1b1d1e;
+  border: 1px solid rgb(63, 63, 63);
+  margin-bottom: 15px;
+  color: white;
+}
+.input-container label {
+  /* padding: 5px;
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  background-color: #1b1d1e; */
+  display: none;
+}
+.input-container input:focus {
+  outline: none;
+  border: 1px solid royalblue;
+}
+.input-container input:focus::placeholder {
+  color: transparent;
+}
+.input-container input:focus + label {
+  display: block;
+  background-color: #1b1d1e;
+  position: absolute;
+  color: royalblue;
+  left: 10px;
+  top: -10px;
+}
+.input-container input:required:valid + label {
+  display: block;
+  background-color: #1b1d1e;
+  position: absolute;
+  color: royalblue;
+  left: 10px;
+  top: -10px;
+}
+.input-container input:required:valid {
+  border: 2px solid royalblue;
+}
+
+button {
+  border: none;
+  background-color: royalblue;
+  color: white;
+  border-radius: 5px;
+  display: block;
+  width: 150px;
+  height: 40px;
+  margin-top: 40px;
+}
+.link {
+  text-decoration: none;
+  color: royalblue;
+}
+.link:hover {
+  text-decoration: underline;
 }

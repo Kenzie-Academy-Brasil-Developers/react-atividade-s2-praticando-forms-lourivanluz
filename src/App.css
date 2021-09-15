@@ -1,8 +1,21 @@
+html,
+body,
+h1,
+h2,
+ul,
+li,
+input,
+div,
+label {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 .App {
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #181a1b;
   min-height: 100vh;
   display: flex;
   flex-direction: column;

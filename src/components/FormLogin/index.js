@@ -6,27 +6,37 @@ import { useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 export function FormLogin() {
-  const [radioCheck, setRadioCheck] = useState(false);
+  //const [checkbox, setcheckbox] = useState(false);
 
   const formSchema = yup.object().shape({
     userName: yup.string().required("Nome de usuário obrigatório"),
     fullName: yup.string().required("Nome completo obrigatório"),
     email: yup.string().required("Email inválido"),
-    /* confirmEmail: yup
+    confirmEmail: yup
       .string()
-      .oneOf([yup.ref("email"), null], "email não é igual"), */
-    password: "confirmPassword",
-    /*  confirmPassword: yup
+      .oneOf([yup.ref("email"), null], "email não é igual"),
+    password: yup
       .string()
-      .oneOf([yup.ref("password"), null], "Senha não é igual"), */
+      .required("senha inválida")
+      .matches(
+        "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$",
+        "invalido"
+      ),
+    confirmPassword: yup
+      .string()
+      .oneOf([yup.ref("password"), null], "Senha não é igual"),
+    checkbox: yup
+      .boolean()
+      .oneOf([true], "Obrigatório aceitar os termos")
+      .required(),
   });
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm(/* {
+  } = useForm({
     resolver: yupResolver(formSchema),
-  } */);
+  });
 
   const onHandleSubmit = (data) => {
     //mandar pra api
@@ -43,73 +53,102 @@ export function FormLogin() {
             handleSubmit(onHandleSubmit)
           }
         >
-          <label>
-            Nome de usuário
+          <div className="input-container">
             <input
-              className="input inputUserName"
+              required
+              id="inputUserName"
+              className="input"
               type="text"
               {...register("userName")}
+              maxLength="18"
+              placeholder="Nome de usuário"
             />
-          </label>
-          <label>
-            Nome completo
+            <label htmlFor="inputUserName">Nome de usuário</label>
+            {errors.userName?.message}
+          </div>
+          <div className="input-container">
             <input
-              className="input inputFullName"
+              required
+              id="inputFullName"
+              className="input"
               type="text"
               {...register("fullName")}
+              placeholder="Nome completo"
             />
-          </label>
-          <label>
-            Endereço de Email
+            <label htmlFor="inputFullName">Nome completo</label>
+            {errors.fullName?.message}
+          </div>
+          <div className="input-container">
             <input
-              className="input inputEmail"
+              required
+              id="inputEmail"
+              className="input"
               type="email"
               {...register("email")}
+              placeholder="Endereço de Email"
             />
-          </label>
-          <label>
-            Confirme seu Email
+            <label htmlFor="inputEmail">Endereço de Email</label>
+            {errors.email?.message}
+          </div>
+
+          <div className="input-container">
             <input
-              className="input inputConfirmEmail"
+              required
+              className="input"
               type="email"
               {...register("confirmEmail")}
+              placeholder="Confirme seu Email"
             />
-          </label>
-          <label>
-            Senha
+            <label htmlFor="inputConfirmEmail">Confirme seu Email</label>
+            {errors.confirmEmail?.message}
+          </div>
+
+          <div className="input-container">
             <input
-              className="input inputPassword"
+              required
+              id="inputPassword"
+              className="input"
               type="password"
               {...register("password")}
+              placeholder="Senha"
             />
-          </label>
-          <label>
-            Confirme sua senha
+            <label htmlFor="inputPassword">Senha</label>
+            {errors.password?.message}
+          </div>
+
+          <div className="input-container">
             <input
-              className="input inputConfirmPassword"
+              required
+              className="input"
               type="password"
               {...register("confirmPassword")}
+              placeholder="Confirme sua senha"
             />
-          </label>
-          <label>
+            <label htmlFor="inputConfirmPassword">Confirme sua senha</label>
+            {errors.confirmPassword?.message}
+          </div>
+
+          <div>
             <input
-              className="confirmTerms"
-              type="radio"
-              checked={radioCheck} // ta dando erro
-              onClick={
-                () => {
-                  setRadioCheck(!radioCheck);
-                }
-                /* console.log(
+              id="confirmTerms"
+              type="checkbox"
+              /* console.log(
                   "abrir uma tela do contrato e mudar o estado pra nao aparecer de novo se o radio estiver ligado"
                 ) */
-              }
+
+              {...register("checkbox")}
             />
-            Eu aceito os termos de uso da aplicação
-          </label>
+            <label htmlFor="confirmTerms">
+              Eu aceito os termos de uso da aplicação
+            </label>
+            {errors.checkbox?.message}
+          </div>
+
           <button type="submit"> Cadastrar</button>
+          <Link to="/login" className="link">
+            Já possui uma conta ?
+          </Link>
         </form>
-        <Link to="/login">Já possui uma conta ?</Link>
       </div>
     </div>
   );
