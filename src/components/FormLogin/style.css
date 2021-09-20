@@ -23,11 +23,6 @@
   color: white;
 }
 .input-container label {
-  /* padding: 5px;
-  position: absolute;
-  left: 10px;
-  top: 10px;
-  background-color: #1b1d1e; */
   display: none;
 }
 .input-container input:focus {
@@ -66,6 +61,7 @@ button {
   width: 150px;
   height: 40px;
   margin-top: 40px;
+  cursor: pointer;
 }
 .link {
   text-decoration: none;

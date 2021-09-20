@@ -2,11 +2,11 @@ import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import "./style.css";
 import * as yup from "yup";
-import { useState } from "react";
+import { useHistory } from "react-router";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-export function FormLogin() {
-  //const [checkbox, setcheckbox] = useState(false);
+export function FormLogin({ setUser }) {
+  const history = useHistory();
 
   const formSchema = yup.object().shape({
     userName: yup.string().required("Nome de usuário obrigatório"),
@@ -40,19 +40,13 @@ export function FormLogin() {
 
   const onHandleSubmit = (data) => {
     //mandar pra api
-
-    console.log(data);
+    setUser(data);
+    history.push("/pageUser");
   };
   return (
     <div className="App-header">
       <div className=" form-container">
-        <form
-          className="form-laytout"
-          onSubmit={
-            //fazer a verificaçao da senha e do email se esta igual
-            handleSubmit(onHandleSubmit)
-          }
-        >
+        <form className="form-laytout" onSubmit={handleSubmit(onHandleSubmit)}>
           <div className="input-container">
             <input
               required
@@ -132,10 +126,6 @@ export function FormLogin() {
             <input
               id="confirmTerms"
               type="checkbox"
-              /* console.log(
-                  "abrir uma tela do contrato e mudar o estado pra nao aparecer de novo se o radio estiver ligado"
-                ) */
-
               {...register("checkbox")}
             />
             <label htmlFor="confirmTerms">
